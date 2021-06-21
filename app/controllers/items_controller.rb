@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def basic_auth
     authenticate_or_request_with_http_basic do |username, password|
-      username == 'toma' && password == '1234'
+      username == 'toma' && password == '0813'
     end
   end
 
