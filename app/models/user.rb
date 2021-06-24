@@ -18,4 +18,7 @@ class User < ApplicationRecord
       validates :family_name_kana
       validates :first_name_kana
     end
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/, message: 'は全角で入力してください。' }
   end
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数混合で入力してください。' }
+end
