@@ -52,8 +52,8 @@ describe User do
         expect(@user.errors.full_messages).to include('Password は半角英数混合で入力してください。')
       end
       it 'passwordは全角英数混合では登録できない' do
-        @user.password = '111111'
-        @user.password_confirmation = '111111'
+        @user.password = 'AAAAAA'
+        @user.password_confirmation = 'AAAAAA'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password は半角英数混合で入力してください。')
       end
