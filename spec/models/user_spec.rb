@@ -45,7 +45,13 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
-      it 'passwordは半角英数字混合でないと登録できない' do
+      it 'passwordは半角数字のみでは登録できない' do
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数混合で入力してください。')
+      end
+      it 'passwordは全角英数混合では登録できない' do
         @user.password = '111111'
         @user.password_confirmation = '111111'
         @user.valid?
@@ -75,6 +81,11 @@ describe User do
         @user.first_name_kana = '太郎'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana は全角カタカナで入力して下さい。')
+      end
+      it 'birthdayが空だと登録出来ない' do
+        @user.birthday = nil
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Birthday can't be blank")  
       end
     end
   end
