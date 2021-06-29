@@ -87,6 +87,26 @@ describe Item do
         @item.valid?
       expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
+      it'priceは半角数字のみ入力可能'do
+        @item.price = '111'
+        @item.valid?
+      expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it'priceは半角英字のみだと保存できない'do
+        @item.price = 'aaa'
+        @item.valid?
+      expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it'priceは半角英数字混合だと保存できない'do
+        @item.price = '111aaa'
+        @item.valid?
+      expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it'priceは全角数字のみだと保存できない'do
+        @item.price = '１１１'
+        @item.valid?
+      expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
     end
   end
 end
