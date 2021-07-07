@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
-  before_action :sold_out_item, only: [:index]
+  before_action :sold_out_item, only: [:index, :create]
 
   def index
     @order_address = OrderAddress.new
@@ -28,9 +28,9 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order_address).permit(:postal, :prefecture_id, :city, :address1, :address2, :telephone).merge(token: params[:token],user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
-  
+
   def sold_out_item
-    redirect_to root_path if @item.present?
+    redirect_to root_path if @item.order.present?
   end
 
   def pay_item
