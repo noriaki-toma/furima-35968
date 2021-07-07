@@ -15,6 +15,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address).to be_valid
       end
       it '建物名がなくても購入できる' do
+        @order_address.address2 = ''
         expect(@order_address).to be_valid
       end
     end
@@ -27,7 +28,7 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Postal can't be blank")
       end
       it '郵便番号は、「3桁ハイフン4桁」の半角文字列のみ保存可能なこと' do
-        @order_address.postal = 123-1234
+        @order_address.postal = '1231234'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Postal is invalid')
       end

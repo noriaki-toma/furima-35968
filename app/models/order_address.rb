@@ -9,7 +9,7 @@ class OrderAddress
     validates :address1
     # validates :address2
     validates :telephone, format: { with: /\A\d{10,11}\z/ }
-    validates :token, presence: true
+    validates :token
     validates :user_id
     validates :item_id
   end
